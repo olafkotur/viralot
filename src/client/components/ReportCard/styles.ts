@@ -46,12 +46,4 @@ export default StyleSheet.create({
     color: theme.secondary,
     opacity: 0.7,
   },
-
-  mapView: {
-    borderRadius: 10,
-    width: '100%',
-    height: 250,
-    marginBottom: 10,
-    opacity: 0.8,
-  },
 });

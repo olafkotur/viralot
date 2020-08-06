@@ -38,7 +38,12 @@ export default class Settings extends React.Component<IProps, IState> {
         <ScrollView
           showsHorizontalScrollIndicator={false}
           showsVerticalScrollIndicator={false} >
-          <StatusBar barStyle={theme.secondary === '#fff' ? 'light-content' : 'dark-content'} />
+
+          <StatusBar
+            translucent
+            backgroundColor="transparent"
+            barStyle={theme.secondary === '#fff' ? 'light-content' : 'dark-content'}
+          />
 
           <View style={styles.settingItems} >
             <SettingItem

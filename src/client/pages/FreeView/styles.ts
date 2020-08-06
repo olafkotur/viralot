@@ -7,20 +7,14 @@ const width: number = Dimensions.get('window').width;
 export default StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: theme.primary,
+    backgroundColor: theme.secondary,
     alignItems: 'center',
     justifyContent: 'flex-start',
   },
 
-  mapView: {
-    width,
-    height: height * 1.25,
-    opacity: 0.9,
-  },
-
   searchBar: {
     position: 'absolute',
-    top: Platform.OS === 'ios' ? 50 : 25,
+    top: Platform.OS === 'ios' ? 50 : 40,
     width: width * 0.9,
     zIndex: 1000,
     opacity: 0.8,

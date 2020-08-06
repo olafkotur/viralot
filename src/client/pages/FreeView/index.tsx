@@ -1,5 +1,4 @@
 import React from 'react';
-import MapView from 'react-native-maps';
 import { View, StatusBar } from 'react-native';
 import styles from './styles';
 import { IMapCoordinates } from '../../../typings/misc';
@@ -9,6 +8,7 @@ import { Searchbar } from 'react-native-paper';
 import _ from 'lodash';
 import Navigation from '../../components/Navigation';
 import { theme } from '../../../config';
+import Map from '../../components/Map';
 
 interface IProps {
   navigation: any;
@@ -66,7 +66,12 @@ export default class FreeView extends React.Component<IProps, IState> {
     if (!this.state.isLoading) {
       return (
         <View style={styles.container} >
-          <StatusBar barStyle="dark-content" />
+          <StatusBar
+            translucent
+            backgroundColor="transparent"
+            barStyle={theme.secondary === '#fff' ? 'light-content' : 'dark-content'}
+          />
+
           <Searchbar
             style={styles.searchBar}
             placeholder="Search"
@@ -76,10 +81,9 @@ export default class FreeView extends React.Component<IProps, IState> {
             placeholderTextColor={theme.secondary}
             inputStyle={styles.searchBarText}
           />
-          <MapView
-            style={styles.mapView}
-            showsCompass={false}
-            initialRegion={{ ...this.intialPosition }}
+          <Map
+            initialPosition={this.intialPosition}
+            fullScreen
           />
 
           <Navigation

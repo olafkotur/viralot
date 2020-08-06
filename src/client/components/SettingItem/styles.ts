@@ -19,7 +19,4 @@ export default StyleSheet.create({
     position: 'absolute',
     left: (width * 0.05) + 35
   },
-
-  action: {
-  }
 });

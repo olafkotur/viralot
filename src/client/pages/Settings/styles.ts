@@ -1,4 +1,4 @@
-import { StyleSheet, Dimensions } from 'react-native';
+import { StyleSheet, Dimensions, Platform } from 'react-native';
 import { theme } from '../../../config';
 
 const height: number = Dimensions.get('window').height;
@@ -13,6 +13,6 @@ export default StyleSheet.create({
   },
 
   settingItems: {
-    marginTop: 15,
+    marginTop: Platform.OS === 'ios' ? 15 : 30,
   }
 });

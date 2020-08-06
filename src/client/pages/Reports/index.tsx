@@ -44,8 +44,14 @@ export default class Reports extends React.Component<IProps, IState> {
     if (!this.state.isLoading) {
       return (
         <SafeAreaView style={styles.container} >
-          <StatusBar barStyle={theme.secondary === '#fff' ? 'light-content' : 'dark-content'} />
+          <StatusBar
+            translucent
+            backgroundColor="transparent"
+            barStyle={theme.secondary === '#fff' ? 'light-content' : 'dark-content'}
+          />
+
           <ScrollView
+            style={styles.scrollView}
             showsHorizontalScrollIndicator={false}
             showsVerticalScrollIndicator={false} >
             { this.renderCardComponents() }

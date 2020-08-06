@@ -12,8 +12,7 @@ export default StyleSheet.create({
     justifyContent: 'flex-start',
   },
 
-  closeButton: {
-    alignSelf: 'flex-end',
-    right: 10,
+  scrollView: {
+    marginTop: Platform.OS === 'ios' ? 15 : 30,
   },
 });

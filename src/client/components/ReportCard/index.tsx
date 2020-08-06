@@ -6,6 +6,7 @@ import { IReportData } from '../../../typings/report';
 import moment from 'moment';
 import MapView from 'react-native-maps';
 import { map, theme } from '../../../config';
+import Map from '../../components/Map';
 
 interface IProps {
   data: IReportData;
@@ -20,10 +21,11 @@ export default class ReportCard extends React.Component<IProps> {
           <Text style={styles.title}>{this.props.data.locationName}</Text>
         </View>
 
-        <MapView
-          style={styles.mapView}
-          scrollEnabled={false}
-          initialRegion={{
+        <Map
+          border
+          margin
+          disableScroll
+          initialPosition={{
             latitude: this.props.data.latitude,
             longitude: this.props.data.longitude,
             latitudeDelta: map.latitudeDelta,
