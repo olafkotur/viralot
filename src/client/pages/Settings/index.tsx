@@ -1,6 +1,6 @@
 import React from 'react';
 import styles from './styles';
-import { View, Text, StatusBar, SafeAreaView } from 'react-native';
+import { View, Text, StatusBar, SafeAreaView, ScrollView } from 'react-native';
 import { theme } from '../../../config';
 import SettingItem from '../../components/SettingItem';
 
@@ -35,42 +35,46 @@ export default class Settings extends React.Component<IProps, IState> {
   render(): JSX.Element {
     return (
       <SafeAreaView style={styles.container}>
-        <StatusBar barStyle={theme.secondary === '#fff' ? 'light-content' : 'dark-content'} />
+        <ScrollView
+          showsHorizontalScrollIndicator={false}
+          showsVerticalScrollIndicator={false} >
+          <StatusBar barStyle={theme.secondary === '#fff' ? 'light-content' : 'dark-content'} />
 
-        <View style={styles.settingItems} >
-          <SettingItem
-            title="Notifications"
-            icon="bell-outline"
-            action="toggle"
-            toggled={this.state.notificationsToggled}
-            handleToggleChange={(value): void => this.handleToggleChange('notifications', value)}
-          />
+          <View style={styles.settingItems} >
+            <SettingItem
+              title="Notifications"
+              icon="bell-outline"
+              action="toggle"
+              toggled={this.state.notificationsToggled}
+              handleToggleChange={(value): void => this.handleToggleChange('notifications', value)}
+            />
 
-          <SettingItem
-            title="Dark Mode"
-            icon="moon-waning-crescent"
-            action="toggle"
-            toggled={this.state.darkModeToggled}
-            handleToggleChange={(value): void => this.handleToggleChange('darkMode', value)}
-          />
+            <SettingItem
+              title="Dark Mode"
+              icon="moon-waning-crescent"
+              action="toggle"
+              toggled={this.state.darkModeToggled}
+              handleToggleChange={(value): void => this.handleToggleChange('darkMode', value)}
+            />
 
-          <SettingItem
-            title="About"
-            icon="help-circle-outline"
-            action="external"
-            handleExternalPressed={(): void => this.handleExternalPressed('about')}
-          />
+            <SettingItem
+              title="About"
+              icon="help-circle-outline"
+              action="external"
+              handleExternalPressed={(): void => this.handleExternalPressed('about')}
+            />
 
-          <SettingItem
-            noBorder
-            title="Logout"
-            icon="logout"
-            action="external"
-            color={theme.danger}
-            handleExternalPressed={(): void => this.handleExternalPressed('logout')}
-          />
+            <SettingItem
+              noBorder
+              title="Logout"
+              icon="logout"
+              action="external"
+              color={theme.danger}
+              handleExternalPressed={(): void => this.handleExternalPressed('logout')}
+            />
 
-        </View>
+          </View>
+        </ScrollView>
       </SafeAreaView>
     );
   } 

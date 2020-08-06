@@ -1,12 +1,9 @@
+const darkTheme = true;
+
 export const theme = {
-  // light
-  // primary: '#fff',
-  // secondary: '#292929',
-  // tertiary: '#fff',
-  // dark
-  primary: '#292929',
-  secondary: '#fff',
-  tertiary: '#fff',
+  primary: darkTheme ? '#292929' : '#fff',
+  secondary: darkTheme ? '#fff' : '#292929',
+  tertiary: '#2980b9',
   danger: '#c0392b',
 };
 

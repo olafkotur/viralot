@@ -27,7 +27,7 @@ export default class SettingItem extends React.Component<IProps> {
         }
 
         { this.props.action === 'toggle' &&
-          <Switch value={this.props.toggled} onValueChange={this.props.handleToggleChange} />
+          <Switch value={this.props.toggled} onValueChange={this.props.handleToggleChange} color={theme.tertiary} />
         }
       </View>
     );
