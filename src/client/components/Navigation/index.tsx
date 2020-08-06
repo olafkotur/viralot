@@ -19,7 +19,7 @@ export default class Navigation extends React.Component<IProps, {}> {
       <View style={styles.container}>
         <TouchableOpacity
           style={styles.iconContainer}
-          onPress={(): void => this.props.navigation.navigate('Profile')} >
+          onPress={(): void => this.props.navigation.navigate('Settings')} >
           <IconButton icon="account-circle-outline" size={20} color={theme.secondary} />
         </TouchableOpacity>
 

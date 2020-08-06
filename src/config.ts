@@ -7,6 +7,7 @@ export const theme = {
   primary: '#292929',
   secondary: '#fff',
   tertiary: '#fff',
+  danger: '#c0392b',
 };
 
 export const map = {

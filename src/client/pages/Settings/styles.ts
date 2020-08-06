@@ -11,4 +11,8 @@ export default StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'flex-start',
   },
+
+  settingItems: {
+    marginTop: 15,
+  }
 });
