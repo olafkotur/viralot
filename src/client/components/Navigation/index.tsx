@@ -34,7 +34,7 @@ export default class Navigation extends React.Component<IProps, {}> {
         <TouchableOpacity
           style={styles.iconContainer}
           onPress={(): void => this.props.navigation.navigate('Reports')} >
-          <IconButton icon="history" size={20} color={theme.secondary}/>
+          <IconButton icon="alert-circle-outline" size={20} color={theme.secondary}/>
         </TouchableOpacity>
       </View>
     );

@@ -9,5 +9,10 @@ export interface IReportData extends ICoordinates {
   createdAt: number;
 }
 
+export interface IReportInputData {
+  locationName: string;
+  description: string;
+}
+
 export interface IHeatMapData extends ICoordinates {
 }

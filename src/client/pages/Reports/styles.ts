@@ -14,5 +14,15 @@ export default StyleSheet.create({
 
   scrollView: {
     marginTop: Platform.OS === 'ios' ? 15 : 30,
+    paddingBottom: 90,
   },
+
+  addReportButton: {
+    position: 'absolute',
+    bottom: 15,
+    right: 15,
+    backgroundColor: theme.secondary,
+    opacity: 0.8,
+  },
+
 });

@@ -1,6 +1,7 @@
-import { IReportData, IHeatMapData } from "../typings/report";
+import { IReportData, IHeatMapData, IReportInputData } from "../typings/report";
 import { LocationService } from "./location";
 import { IMapCoordinates } from "../typings/misc";
+import moment from 'moment';
 
 export const ReportService = {
   getUserReports: async (): Promise<IReportData[]> => {
@@ -46,5 +47,17 @@ export const ReportService = {
       }
     ];
     return data;
+  },
+
+  saveReport: async (details: IReportInputData): Promise<void> => {
+    const currentLocation = await LocationService.getCurrentPosition();
+    const payload: IReportData = {
+      ...details,
+      latitude: currentLocation.latitude,
+      longitude: currentLocation.longitude,
+      createdAt: moment().unix(),
+    };
+
+    console.log(payload);
   },
 };
