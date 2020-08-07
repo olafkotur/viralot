@@ -3,10 +3,12 @@ import { IconButton } from 'react-native-paper';
 import styles from './styles';
 import { View, TouchableOpacity } from 'react-native';
 import { theme } from '../../../config';
+import Loader from '../Loader';
 
 interface IProps {
   navigation: any;
-  handleCurrentLocation: () => void;
+  isSearching: boolean;
+  handleCurrentLocation: () => Promise<void>;
 }
 
 export default class Navigation extends React.Component<IProps, {}> {
@@ -26,7 +28,7 @@ export default class Navigation extends React.Component<IProps, {}> {
         <TouchableOpacity
           style={styles.iconContainer}
           onPress={this.props.handleCurrentLocation} >
-          <IconButton icon="crosshairs-gps" size={35} color={theme.secondary} />
+          <IconButton icon="crosshairs-gps" size={35} color={theme.secondary}/>
         </TouchableOpacity>
 
         <TouchableOpacity

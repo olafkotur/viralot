@@ -7,7 +7,6 @@ const width: number = Dimensions.get('window').width;
 export default StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: theme.primary,
     alignItems: 'center',
     justifyContent: 'flex-start',
   },

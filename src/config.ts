@@ -1,4 +1,4 @@
-const darkTheme = false;
+const darkTheme = true;
 
 export const theme = {
   theme: darkTheme ? 'dark' : 'light',

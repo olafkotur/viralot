@@ -1,15 +1,16 @@
 import React from 'react';
-import { View, TouchableOpacity, Dimensions } from 'react-native';
-import { theme } from '../../../config';
+import { View, Dimensions } from 'react-native';
+import { theme, map } from '../../../config';
 import MapView, { Heatmap } from 'react-native-maps';
 import { IMapCoordinates } from '../../../typings/misc';
 import { light, dark } from './styles';
 import Loader from '../Loader';
-import { IHeatMapData } from '../../../typings/report';
+import { IHeatMapData, ICoordinates } from '../../../typings/report';
 import { ReportService } from '../../../services/report';
 
 interface IProps {
   initialPosition: IMapCoordinates;
+  scrollToCoordinates: ICoordinates | null;
   fullScreen?: boolean;
   border?: boolean;
   margin?: boolean;
@@ -21,6 +22,7 @@ interface IState {
 }
 
 export default class Map extends React.Component<IProps, IState> {
+  protected map: any;
   protected heatMapData: IHeatMapData[] = []
   protected mapStyles: any = null;
   protected width: number;
@@ -47,6 +49,28 @@ export default class Map extends React.Component<IProps, IState> {
   componentDidMount = async (): Promise<void> => {
     this.heatMapData = await ReportService.getHeatMapData(this.props.initialPosition);
     this.setState({ isLoading: false });
+    this.scrollToPosition();
+  };
+
+  componentDidUpdate = (prevProps: IProps): void => {
+    if (prevProps.scrollToCoordinates !== this.props.scrollToCoordinates) {
+      this.scrollToPosition();
+    }
+  };
+
+  scrollToPosition = (): void => {
+    if (!this.map || !this.props.scrollToCoordinates) {
+      return;
+    }
+
+    this.map.animateCamera({
+      center: {
+        ...this.props.scrollToCoordinates,
+        latitudeDelta: map.latitudeDelta,
+        longitudeDetla: map.longitudeDelta,
+      },
+      zoom: 15,
+    }, 1000);
   };
 
   render(): JSX.Element {
@@ -54,6 +78,8 @@ export default class Map extends React.Component<IProps, IState> {
       <View style={{ height: this.props.fullScreen ? this.height * 1.25: 300, width: this.mapStyles.width, overflow: 'hidden' }}>
         {!this.state.isLoading ?
           <MapView
+            showsUserLocation
+            ref={(map) => this.map = map}
             style={this.mapStyles}
             showsCompass={false}
             initialRegion={this.props.initialPosition}
