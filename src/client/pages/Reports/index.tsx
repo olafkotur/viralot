@@ -88,6 +88,7 @@ export default class Reports extends React.Component<IProps, IState> {
 
           <Modal
             transparent
+            animated
             visible={this.state.modalVisible} >
             <NewReport
               handleClose={this.toggleModal}
