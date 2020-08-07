@@ -1,12 +1,14 @@
 import React from 'react';
-import { SafeAreaView, ScrollView, StatusBar } from 'react-native';
+import { SafeAreaView, ScrollView, StatusBar, Modal } from 'react-native';
 import styles from './styles';
 import Loader from '../../components/Loader';
 import _ from 'lodash';
 import ReportCard from '../../components/ReportCard';
-import { IReportData } from '../../../typings/report';
+import { IReportData, IReportInputData } from '../../../typings/report';
 import { ReportService } from '../../../services/report';
 import { theme } from '../../../config';
+import { IconButton } from 'react-native-paper';
+import NewReport from '../../components/NewReport';
 
 interface IProps {
   navigation: any;
@@ -14,6 +16,7 @@ interface IProps {
 
 interface IState {
   isLoading: boolean;
+  modalVisible: boolean;
 }
 
 export default class Reports extends React.Component<IProps, IState> {
@@ -24,6 +27,7 @@ export default class Reports extends React.Component<IProps, IState> {
 
     this.state = {
       isLoading: true,
+      modalVisible: false,
     };
   }
 
@@ -36,8 +40,13 @@ export default class Reports extends React.Component<IProps, IState> {
     return this.data.map((v, i) => <ReportCard key={`report-card-${i}`} data={v} />);
   }
   
-  handleNavigate = (page: 'FreeView'): void => {
-    this.props.navigation.navigate(page);
+  toggleModal = (): void => {
+    this.setState({ modalVisible: !this.state.modalVisible });
+  }
+
+  handleSubmit = async (details: IReportInputData): Promise<void> => {
+    await ReportService.saveReport(details);
+    this.toggleModal();
   }
 
   render(): JSX.Element {
@@ -51,11 +60,30 @@ export default class Reports extends React.Component<IProps, IState> {
           />
 
           <ScrollView
-            style={styles.scrollView}
+            contentContainerStyle={styles.scrollView}
             showsHorizontalScrollIndicator={false}
             showsVerticalScrollIndicator={false} >
             { this.renderCardComponents() }
           </ScrollView>
+
+          <IconButton
+            style={styles.addReportButton}
+            icon="plus"
+            color={theme.primary}
+            size={35}
+            onPress={this.toggleModal}
+          />
+
+          <Modal
+            transparent
+            visible={this.state.modalVisible}
+            onDismiss={this.toggleModal} >
+            <NewReport
+              handleClose={this.toggleModal}
+              handleSubmit={this.handleSubmit}
+            />
+          </Modal>
+
         </SafeAreaView>
       );
     } else return <Loader />

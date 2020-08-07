@@ -9,6 +9,7 @@ import _ from 'lodash';
 import Navigation from '../../components/Navigation';
 import { theme } from '../../../config';
 import Map from '../../components/Map';
+import { ICoordinates } from '../../../typings/report';
 
 interface IProps {
   navigation: any;
@@ -16,7 +17,9 @@ interface IProps {
 
 interface IState {
   isLoading: boolean;
+  isSearching: boolean;
   searchQuery: string;
+  scrollToPosition: ICoordinates | null;
 }
 
 export default class FreeView extends React.Component<IProps, IState> {
@@ -28,7 +31,9 @@ export default class FreeView extends React.Component<IProps, IState> {
 
     this.state = {
       isLoading: true,
+      isSearching: false,
       searchQuery: '',
+      scrollToPosition: null,
     };
 
     this.intialPosition = { latitude: 0, longitude: 0, latitudeDelta: 0, longitudeDelta: 0 };
@@ -58,8 +63,14 @@ export default class FreeView extends React.Component<IProps, IState> {
     this.props.navigation.navigate(page);
   }
 
-  handleCurrentLocation = (): void => {
-    console.log('TODO: Current location pressed');
+  handleCurrentLocation = async (): Promise<void> => {
+    this.setState({ isSearching: true });
+    const currentLocation = await LocationService.getCurrentPosition();
+    const scrollToPosition = {
+      latitude: currentLocation.latitude,
+      longitude: currentLocation.longitude,
+    };
+    this.setState({ scrollToPosition, isSearching: false  });
   }
 
   render(): JSX.Element {
@@ -81,12 +92,15 @@ export default class FreeView extends React.Component<IProps, IState> {
             placeholderTextColor={theme.secondary}
             inputStyle={styles.searchBarText}
           />
+          
           <Map
             initialPosition={this.intialPosition}
+            scrollToCoordinates={this.state.scrollToPosition}
             fullScreen
           />
 
           <Navigation
+            isSearching={this.state.isSearching}
             navigation={this.props.navigation}
             handleCurrentLocation={this.handleCurrentLocation}
           />
