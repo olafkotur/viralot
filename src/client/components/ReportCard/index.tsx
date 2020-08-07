@@ -25,6 +25,7 @@ export default class ReportCard extends React.Component<IProps> {
           border
           margin
           disableScroll
+          scrollToCoordinates={null}
           initialPosition={{
             latitude: this.props.data.latitude,
             longitude: this.props.data.longitude,
