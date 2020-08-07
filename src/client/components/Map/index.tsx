@@ -41,7 +41,7 @@ export default class Map extends React.Component<IProps, {}> {
           showsCompass={false}
           initialRegion={this.props.initialPosition}
           scrollEnabled={!this.props.disableScroll}
-          customMapStyle={theme.primary === '#fff' ? light : dark}
+          customMapStyle={theme.theme === 'dark' ? dark : light}
           provider="google"
         />
       </View>

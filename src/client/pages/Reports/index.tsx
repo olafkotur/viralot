@@ -47,7 +47,7 @@ export default class Reports extends React.Component<IProps, IState> {
           <StatusBar
             translucent
             backgroundColor="transparent"
-            barStyle={theme.secondary === '#fff' ? 'light-content' : 'dark-content'}
+            barStyle={theme.theme ==='dark' ? 'light-content' : 'dark-content'}
           />
 
           <ScrollView

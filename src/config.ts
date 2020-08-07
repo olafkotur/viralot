@@ -1,8 +1,9 @@
-const darkTheme = true;
+const darkTheme = false;
 
 export const theme = {
-  primary: darkTheme ? '#292929' : '#fff',
-  secondary: darkTheme ? '#fff' : '#292929',
+  theme: darkTheme ? 'dark' : 'light',
+  primary: darkTheme ? '#292929' : '#ecf0f1',
+  secondary: darkTheme ? '#ecf0f1' : '#292929',
   tertiary: '#2980b9',
   danger: '#c0392b',
 };

@@ -33,6 +33,7 @@ export default StyleSheet.create({
   },
 
   description: {
+    marginTop: 5,
     alignSelf: 'flex-start',
     paddingHorizontal: 10,
     color: theme.secondary,
