@@ -1,5 +1,5 @@
 import React from 'react';
-import { SafeAreaView, ScrollView, StatusBar, Modal } from 'react-native';
+import { SafeAreaView, ScrollView, StatusBar, Modal, RefreshControl } from 'react-native';
 import styles from './styles';
 import Loader from '../../components/Loader';
 import _ from 'lodash';
@@ -32,6 +32,11 @@ export default class Reports extends React.Component<IProps, IState> {
   }
 
   componentDidMount = async (): Promise<void> => {
+    await this.fetchData();
+  }
+
+  fetchData = async (): Promise<void> => {
+    this.setState({ isLoading: true });
     this.data = await ReportService.getUserReports();
     this.setState({ isLoading: false });
   }
@@ -45,8 +50,9 @@ export default class Reports extends React.Component<IProps, IState> {
   }
 
   handleSubmit = async (details: IReportInputData): Promise<void> => {
-    await ReportService.saveReport(details);
     this.toggleModal();
+    await ReportService.saveReport(details);
+    await this.fetchData();
   }
 
   render(): JSX.Element {
@@ -60,6 +66,12 @@ export default class Reports extends React.Component<IProps, IState> {
           />
 
           <ScrollView
+            refreshControl={
+              <RefreshControl
+                refreshing={this.state.isLoading}
+                onRefresh={this.fetchData}
+              />
+            }
             contentContainerStyle={styles.scrollView}
             showsHorizontalScrollIndicator={false}
             showsVerticalScrollIndicator={false} >
@@ -76,8 +88,7 @@ export default class Reports extends React.Component<IProps, IState> {
 
           <Modal
             transparent
-            visible={this.state.modalVisible}
-            onDismiss={this.toggleModal} >
+            visible={this.state.modalVisible} >
             <NewReport
               handleClose={this.toggleModal}
               handleSubmit={this.handleSubmit}
