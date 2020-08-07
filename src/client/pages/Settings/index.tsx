@@ -3,29 +3,52 @@ import styles from './styles';
 import { View, Text, StatusBar, SafeAreaView, ScrollView } from 'react-native';
 import { theme } from '../../../config';
 import SettingItem from '../../components/SettingItem';
+import { StorageService } from '../../../services/storage';
+import { UserService } from '../../../services/user';
+import { IUserData } from '../../../typings/user';
 
 interface IProps {
   navigation: any;
 }
 
 interface IState {
+  isLoading: boolean;
   notificationsToggled: boolean;
   darkModeToggled: boolean;
 }
 
 export default class Settings extends React.Component<IProps, IState> {
+  protected userData!: IUserData;
+
   constructor(props: IProps) {
     super(props);
 
     this.state = {
+      isLoading: true,
       notificationsToggled: false,
       darkModeToggled: true,
     };
   }
 
-  handleToggleChange = (action: 'notifications' | 'darkMode', value: boolean): void => {
-    action === 'notifications' && this.setState({ notificationsToggled: value });
-    action === 'darkMode' && this.setState({ darkModeToggled: value });
+  componentDidMount = async (): Promise<void> => {
+    this.userData = await StorageService.retrieveSecureData('userData');
+    this.setState({
+      isLoading: false,
+      notificationsToggled: this.userData?.notifications,
+      darkModeToggled: this.userData?.darkMode,
+    });
+  }
+
+  handleToggleChange = async (action: 'notifications' | 'darkMode', value: boolean): Promise<void> => {
+    if (action === 'notifications') {
+      this.setState({ notificationsToggled: value });
+      this.userData.notifications = value;
+    } else if (action === 'darkMode') {
+      this.setState({ darkModeToggled: value });
+      this.userData.darkMode = value;
+    }
+
+    await UserService.saveSettings(this.userData);
   }
 
   handleExternalPressed = (action: 'about' | 'logout'): void => {
@@ -45,13 +68,13 @@ export default class Settings extends React.Component<IProps, IState> {
             barStyle={theme.secondary === '#fff' ? 'light-content' : 'dark-content'}
           />
 
-          <View style={styles.settingItems} >
+          {!this.state.isLoading && <View style={styles.settingItems} >
             <SettingItem
               title="Notifications"
               icon="bell-outline"
               action="toggle"
               toggled={this.state.notificationsToggled}
-              handleToggleChange={(value): void => this.handleToggleChange('notifications', value)}
+              handleToggleChange={async (value): Promise<void> => this.handleToggleChange('notifications', value)}
             />
 
             <SettingItem
@@ -59,7 +82,7 @@ export default class Settings extends React.Component<IProps, IState> {
               icon="moon-waning-crescent"
               action="toggle"
               toggled={this.state.darkModeToggled}
-              handleToggleChange={(value): void => this.handleToggleChange('darkMode', value)}
+              handleToggleChange={async (value): Promise<void> => this.handleToggleChange('darkMode', value)}
             />
 
             <SettingItem
@@ -77,8 +100,8 @@ export default class Settings extends React.Component<IProps, IState> {
               color={theme.danger}
               handleExternalPressed={(): void => this.handleExternalPressed('logout')}
             />
+          </View>}
 
-          </View>
         </ScrollView>
       </SafeAreaView>
     );

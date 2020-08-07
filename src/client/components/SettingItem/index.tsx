@@ -11,7 +11,7 @@ interface IProps {
   color?: string;
   toggled?: boolean;
   noBorder?: boolean;
-  handleToggleChange?: (value: boolean) => void;
+  handleToggleChange?: (value: boolean) => Promise<void>;
   handleExternalPressed?: () => void;
 }
 
