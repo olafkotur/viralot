@@ -3,6 +3,7 @@ import styles from './styles';
 import { View, StatusBar, SafeAreaView, Image, Text, KeyboardAvoidingView, TouchableOpacity } from 'react-native';
 import { theme } from '../../../config';
 import { IconButton, TextInput } from 'react-native-paper';
+import { UserService } from '../../../services/user';
 const backgroundImage = require('../../../../assets/bg-dark-min.png');
 
 interface IProps {
@@ -19,8 +20,8 @@ export default class Login extends React.Component<IProps, IState> {
     super(props);
 
     this.state = {
-      email: '',
-      password: '',
+      email: 'olafkotur97@gmail.com',
+      password: 'poly123',
     };
   }
 
@@ -30,9 +31,17 @@ export default class Login extends React.Component<IProps, IState> {
   }
 
   handleLogin = async (): Promise<void> => {
+    const success = await UserService.signIn({ email: this.state.email, password: this.state.password });
+    if (success) {
+      this.props.navigation.navigate('Home');
+    }
   }
 
   handleSignup = async (): Promise<void> => {
+    const success = await UserService.signIn({ email: this.state.email, password: this.state.password });
+    if (success) {
+      this.props.navigation.navigate('Home');
+    }
   }
 
   handleForgotPassword = async (): Promise<void> => {
@@ -62,6 +71,8 @@ export default class Login extends React.Component<IProps, IState> {
             <TextInput
               style={styles.textInput}
               placeholder="Email"
+              keyboardType="email-address"
+              autoCapitalize="none"
               maxLength={100}
               mode="outlined"
               value={this.state.email}
@@ -80,6 +91,8 @@ export default class Login extends React.Component<IProps, IState> {
               secureTextEntry
               style={styles.textInput}
               placeholder="Password"
+              keyboardType="default"
+              autoCapitalize="none"
               maxLength={100}
               mode="outlined"
               value={this.state.password}
