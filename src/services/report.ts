@@ -4,10 +4,15 @@ import { IMapCoordinates } from "../typings/misc";
 import moment from 'moment';
 import { api } from "../config";
 import * as _ from 'lodash';
+import { IUserData } from "../typings/user";
+import { StorageService } from "./storage";
+import { HttpService } from './http';
 
 export const ReportService = {
   getUserReports: async (): Promise<IReportData[]> => {
-    const res = await fetch(`${api.url}/getUserReports`);
+    // const payload: IUserData = await StorageService.retrieveSecureData('userData');
+    const payload: Partial<IUserData> = { email: 'olafkotur97@gmail.com', password: 'poly123' };
+    const res = await HttpService.post(`${api.url}/getUserReports`, payload);
     if (res.ok) {
       const json = await res.json();
       return _.sortBy(json.data, 'createdAt').reverse();
@@ -16,7 +21,9 @@ export const ReportService = {
   },
 
   getHeatMapData: async (initialPosition: IMapCoordinates): Promise<IHeatMapData[]> => {
-    const res = await fetch(`${api.url}/getHeatMap`);
+    // const payload: IUserData = await StorageService.retrieveSecureData('userData');
+    const payload: Partial<IUserData> = { email: 'olafkotur97@gmail.com', password: 'poly123' };
+    const res = await HttpService.post(`${api.url}/getHeatMap`, payload);
     if (res.ok) {
       const json = await res.json();
       return _.sortBy(json.data, 'createdAt').reverse();
@@ -33,13 +40,6 @@ export const ReportService = {
       createdAt: moment().unix(),
     };
 
-    await fetch(`${api.url}/createReport`, {
-      method: 'POST',
-      body: JSON.stringify(payload),
-      headers: {
-        'Content-Type': 'application/json', 
-        Accept: 'application/json',
-      },
-    });
+    await HttpService.post(`${api.url}/createReport`, payload);
   },
 };
