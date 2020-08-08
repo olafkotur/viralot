@@ -10,7 +10,7 @@ import { HttpService } from './http';
 
 export const ReportService = {
   getUserReports: async (): Promise<IReportData[]> => {
-    // const payload: IUserData = await StorageService.retrieveSecureData('userData');
+    // const userData: IUserData = await StorageService.retrieveSecureData('userData');
     const payload: Partial<IUserData> = { email: 'olafkotur97@gmail.com', password: 'poly123' };
     const res = await HttpService.post(`${api.url}/getUserReports`, payload);
     if (res.ok) {
@@ -21,7 +21,7 @@ export const ReportService = {
   },
 
   getHeatMapData: async (initialPosition: IMapCoordinates): Promise<IHeatMapData[]> => {
-    // const payload: IUserData = await StorageService.retrieveSecureData('userData');
+    // const userData: IUserData = await StorageService.retrieveSecureData('userData');
     const payload: Partial<IUserData> = { email: 'olafkotur97@gmail.com', password: 'poly123' };
     const res = await HttpService.post(`${api.url}/getHeatMap`, payload);
     if (res.ok) {
