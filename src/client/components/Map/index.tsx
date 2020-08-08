@@ -84,7 +84,7 @@ export default class Map extends React.Component<IProps, IState> {
             showsCompass={false}
             initialRegion={this.props.initialPosition}
             scrollEnabled={!this.props.disableScroll}
-            customMapStyle={theme.theme === 'dark' ? dark : light}
+            customMapStyle={theme.theme === 'dark' ? dark : light} 
             provider="google" >
             <Heatmap points={this.heatMapData} radius={40}/>
           </MapView>
