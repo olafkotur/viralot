@@ -52,7 +52,9 @@ export default class Settings extends React.Component<IProps, IState> {
   }
 
   handleExternalPressed = (action: 'about' | 'logout'): void => {
-    console.log('About pressed');
+    if (action === 'logout') {
+      this.props.navigation.replace('Login');
+    }
   }
 
   render(): JSX.Element {

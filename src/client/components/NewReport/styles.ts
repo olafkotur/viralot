@@ -29,19 +29,20 @@ export default StyleSheet.create({
   titleContainer: {
     flexDirection: 'row',
     marginBottom: -12,
+    marginLeft: -10,
   },
 
   title: {
-    textAlignVertical: 'center',
+    alignSelf: 'center',
     color: theme.secondary,
     fontSize: 18,
+    marginLeft: -5,
   },
 
   textInput: {
     width: width * 0.8,
-    borderRadius: 10,
     textAlignVertical: 'top',
-    margin: 0,
+    borderBottomWidth: 0,
   },
 
   submitButton: {

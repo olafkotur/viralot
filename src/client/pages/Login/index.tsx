@@ -4,25 +4,33 @@ import { View, StatusBar, SafeAreaView, Image, Text, KeyboardAvoidingView, Touch
 import { theme } from '../../../config';
 import { IconButton, TextInput } from 'react-native-paper';
 import { UserService } from '../../../services/user';
-const backgroundImage = require('../../../../assets/bg-dark-min.png');
+import Loader from '../../components/Loader';
 
 interface IProps {
   navigation: any;
 }
 
 interface IState {
+  isLoading: boolean;
   email: string;
   password: string;
 }
 
 export default class Login extends React.Component<IProps, IState> {
+  protected backgroundImageLight: any;
+  protected backgroundImageDark: any;
+
   constructor(props: IProps) {
     super(props);
 
     this.state = {
+      isLoading: false,
       email: 'olafkotur97@gmail.com',
       password: 'poly123',
     };
+
+    this.backgroundImageLight = require('../../../../assets/bg/bg-light-min.png');
+    this.backgroundImageDark = require('../../../../assets/bg/bg-dark-min.png');
   }
 
   handleUpdate = (key: string, value: string) => {
@@ -45,12 +53,13 @@ export default class Login extends React.Component<IProps, IState> {
   }
 
   handleForgotPassword = async (): Promise<void> => {
+    this.props.navigation.navigate('Home');
   }
 
   render(): JSX.Element {
     return (
       <SafeAreaView style={styles.container}>
-        <Image style={styles.background} source={backgroundImage} />
+        <Image style={styles.background} source={theme.theme === 'dark' ? this.backgroundImageDark : this.backgroundImageLight} />
         <KeyboardAvoidingView behavior="position" >
           <StatusBar
             translucent
