@@ -9,11 +9,12 @@ export default StyleSheet.create({
     flex: 1,
     alignItems: 'center',
     justifyContent: 'flex-start',
-    backgroundColor: theme.primary,
   },
 
   loading: {
     flex: 1,
     alignSelf: 'center',
+    width: '100%',
+    height: '100%',
   },
 });

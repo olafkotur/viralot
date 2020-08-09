@@ -1,6 +1,6 @@
 import React from 'react';
 import styles from './styles';
-import { View, TouchableOpacity, KeyboardAvoidingView } from 'react-native';
+import { View, TouchableOpacity, KeyboardAvoidingView, SafeAreaView } from 'react-native';
 import { theme } from '../../../config';
 import { IconButton, TextInput, Text } from 'react-native-paper';
 import { IReportInputData } from '../../../typings/report';
@@ -45,7 +45,7 @@ export default class NewReport extends React.Component<IProps, IState> {
 
   render(): JSX.Element {
     return (
-      <View style={styles.container} >
+      <SafeAreaView style={styles.container} >
         <KeyboardAvoidingView behavior="position" >
           <IconButton
             size={25}
@@ -65,7 +65,7 @@ export default class NewReport extends React.Component<IProps, IState> {
               style={styles.textInput}
               placeholder="Notting Hill, London, UK"
               maxLength={30}
-              mode="outlined"
+              mode="flat"
               value={this.state.locationName}
               onChangeText={e => this.handleUpdate('locationName', e)}
               error={this.state.isSubmitting && !this.state.locationName}
@@ -84,7 +84,7 @@ export default class NewReport extends React.Component<IProps, IState> {
               style={styles.textInput}
               numberOfLines={10}
               maxLength={240}
-              mode="outlined"
+              mode="flat"
               value={this.state.description}
               onChangeText={e => this.handleUpdate('description', e)}
               error={this.state.isSubmitting && !this.state.description}
@@ -99,7 +99,7 @@ export default class NewReport extends React.Component<IProps, IState> {
           </TouchableOpacity>
 
         </KeyboardAvoidingView>
-      </View>
+      </SafeAreaView>
     );
   } 
 }
