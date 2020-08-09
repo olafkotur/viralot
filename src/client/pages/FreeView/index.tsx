@@ -83,7 +83,7 @@ export default class FreeView extends React.Component<IProps, IState> {
             barStyle={theme.theme ==='dark' ? 'light-content' : 'dark-content'}
           />
 
-          <Searchbar
+          {/* <Searchbar
             style={styles.searchBar}
             placeholder="Search"
             onChangeText={value => this.handleChange('searchQuery', value)}
@@ -91,7 +91,7 @@ export default class FreeView extends React.Component<IProps, IState> {
             iconColor={theme.secondary}
             placeholderTextColor={theme.secondary}
             inputStyle={styles.searchBarText}
-          />
+          /> */}
           
           <Map
             initialPosition={this.intialPosition}
