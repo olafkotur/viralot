@@ -71,21 +71,21 @@ export default class Settings extends React.Component<IProps, IState> {
           />
 
           {!this.state.isLoading && <View style={styles.settingItems} >
-            <SettingItem
+            {/* <SettingItem
               title="Notifications"
               icon="bell-outline"
               action="toggle"
               toggled={this.state.notificationsToggled}
               handleToggleChange={async (value): Promise<void> => this.handleToggleChange('notifications', value)}
-            />
+            /> */}
 
-            <SettingItem
+            {/* <SettingItem
               title="Dark Mode"
               icon="moon-waning-crescent"
               action="toggle"
               toggled={this.state.darkModeToggled}
               handleToggleChange={async (value): Promise<void> => this.handleToggleChange('darkMode', value)}
-            />
+            /> */}
 
             <SettingItem
               title="About"

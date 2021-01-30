@@ -46,7 +46,7 @@ export default class Login extends React.Component<IProps, IState> {
   }
 
   handleSignup = async (): Promise<void> => {
-    const success = await UserService.signIn({ email: this.state.email, password: this.state.password });
+    const success = await UserService.createUser({ email: this.state.email, password: this.state.password });
     if (success) {
       this.props.navigation.navigate('Home');
     }

@@ -54,7 +54,7 @@ export default StyleSheet.create({
   },
 
   actionButtonContainer: {
-    marginTop: 50,
+    marginVertical: 50,
     flexDirection: 'row',
     justifyContent: 'space-between',
   },
